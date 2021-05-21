@@ -8,25 +8,19 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 
     public void login(View view){
-        EditText emailTxt = (EditText)findViewById(R.id.phoneNo);
-        String email = emailTxt.getText().toString();
-
-        EditText passwordTxt = (EditText)findViewById(R.id.passwordTxt);
-        String password = passwordTxt.getText().toString();
 
         if(itemClicked(view)){
            // TODO: FINISH THIS CHECKBOX THING
@@ -41,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, mainScreen.class);
         startActivity(intent);
     }
+
     public boolean itemClicked(View v) {
         //code to check if this checkbox is checked!
         CheckBox rememberMe = (CheckBox)findViewById(R.id.rememberMe);

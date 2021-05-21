@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/signUp2"
+        android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -50,14 +50,14 @@
         android:textColor="#FFFFFF"
         android:textSize="19sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/nameTxt"
+        app:layout_constraintBottom_toTopOf="@+id/nameUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/nameTxt"
+        android:id="@+id/nameUp"
         android:layout_width="222dp"
         android:layout_height="32dp"
         android:layout_marginTop="120dp"
@@ -71,15 +71,15 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/emailTxt"
+        app:layout_constraintBottom_toTopOf="@+id/emailUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/emailTxt"
+        android:id="@+id/emailUp"
         android:layout_width="222dp"
         android:layout_height="32dp"
         android:layout_marginTop="200dp"
@@ -93,7 +93,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordTxt"
+        app:layout_constraintBottom_toTopOf="@+id/passwordUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="0.125" />
 
     <EditText
-        android:id="@+id/passwordTxt"
+        android:id="@+id/passwordUp"
         android:layout_width="222dp"
         android:layout_height="32dp"
         android:layout_marginTop="280dp"
@@ -155,6 +155,7 @@
         android:layout_marginBottom="270dp"
         android:background="@drawable/border"
         android:text="register"
+        android:onClick="register"
         android:textColor="#2196F3"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +173,7 @@
         android:text="Full Name"
         android:textColor="#FFFFFF"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/nameTxt"
+        app:layout_constraintBottom_toTopOf="@+id/nameUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.265"
         app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +204,7 @@
         android:text="Password"
         android:textColor="#FFFFFF"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/passwordTxt"
+        app:layout_constraintBottom_toTopOf="@+id/passwordUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
@@ -218,7 +219,7 @@
         android:text="Email"
         android:textColor="#FFFFFF"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/emailTxt"
+        app:layout_constraintBottom_toTopOf="@+id/emailUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
