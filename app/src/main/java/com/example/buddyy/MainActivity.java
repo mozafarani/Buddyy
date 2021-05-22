@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -21,6 +22,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view){
+
+        EditText emailUp = (EditText)findViewById(R.id.emailTxt);
+        EditText passwordUp = (EditText)findViewById(R.id.passTxt);
+
+        UserModel model = new UserModel("",emailUp.getText().toString(),passwordUp.getText().toString());
+        DatabaseOperations db = new DatabaseOperations(MainActivity.this);
+
+        if(db.userExists(model)){
+            signUp(view);
+        }else{
+            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+        }
 
         if(itemClicked(view)){
            // TODO: FINISH THIS CHECKBOX THING

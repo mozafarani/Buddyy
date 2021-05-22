@@ -2,8 +2,10 @@ package com.example.buddyy;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.telephony.mbms.StreamingServiceInfo;
 
 import androidx.annotation.Nullable;
 
@@ -41,5 +43,24 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         long insert = db.insert(USERS_TABLE, null, contentValues);
 
         return insert != -1;
+    }
+
+    public boolean userExists(UserModel model){
+        String s = "SELECT "+COLUMN_EMAIL+", "+COLUMN_PASSWORD+" FROM " + USERS_TABLE+";";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(s, null);
+
+
+            while(cursor.moveToNext()) {
+
+                if(model.getEmail().equals(cursor.getString(0))  && model.getPassword().equals(cursor.getColumnName(1))){
+                    cursor.close();
+                    return true;
+                }
+
+            }
+            cursor.close();
+            return false;
     }
 }
