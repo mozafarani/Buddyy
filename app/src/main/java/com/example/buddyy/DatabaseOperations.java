@@ -51,11 +51,18 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(s, null);
 
+        int pos1 = cursor.getColumnIndex("email");
+        int pos2 = cursor.getColumnIndex("password");
 
             while(cursor.moveToNext()) {
 
-                if(model.getEmail().equals(cursor.getString(0))  && model.getPassword().equals(cursor.getColumnName(1))){
+                System.out.println(model.getEmail().equals(cursor.getString(pos1)) +" " +model.getEmail() + " " + cursor.getString(pos1) + " PASSWORDS " + model.getPassword().equals(cursor.getColumnName(pos2)) + " " + model.getPassword() + " " + cursor.getString(pos2));
+
+
+                if(model.getEmail().equals(cursor.getString(pos1)) && model.getPassword().equals(cursor.getString(pos2))){
+                    System.out.println("Hey");
                     cursor.close();
+                    System.out.println("Hey");
                     return true;
                 }
 
