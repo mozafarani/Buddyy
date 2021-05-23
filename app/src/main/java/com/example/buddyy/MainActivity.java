@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(checkbox.equals("true")){
-            Intent intent = new Intent(this, mainScreen.class);
+            Intent intent = new Intent(this, homePage.class);
             startActivity(intent);
         }else{
             Toast.makeText(MainActivity.this, "Please Sign In", Toast.LENGTH_SHORT).show();
