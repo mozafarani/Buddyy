@@ -47,13 +47,12 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("remember","true");
                 editor.apply();
-                Toast.makeText(MainActivity.this, "Checked", Toast.LENGTH_SHORT).show();
             }else if(!remember.isChecked()){
                 SharedPreferences sharedPreferences = getSharedPreferences("checkbox",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("remember","false");
                 editor.apply();
-                Toast.makeText(MainActivity.this, "UnChecked", Toast.LENGTH_SHORT).show();
+
             }
 
         }
@@ -76,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
         DatabaseOperations db = new DatabaseOperations(MainActivity.this);
 
         if(db.userExists(model)){
-            // TODO: FINISH SWITCHING SCREENS
+            Intent intent = new Intent(this, homePage.class);
+            startActivity(intent);
         }else{
             Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
         }

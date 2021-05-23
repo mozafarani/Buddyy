@@ -1,22 +1,23 @@
 package com.example.buddyy;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
-public class homePage extends AppCompatActivity {
-
+public class Profile extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setContentView(R.layout.profiler);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -26,25 +27,23 @@ public class homePage extends AppCompatActivity {
                 Intent intent;
                 switch (item.getItemId()){
                     case R.id.home:
-                        intent = new Intent(homePage.this, Home.class);
+                        intent = new Intent(Profile.this, Home.class);
                         startActivity(intent);
                         break;
                     case R.id.search:
-                        intent = new Intent(homePage.this,Search.class);
+                        intent = new Intent(Profile.this,Search.class);
                         startActivity(intent);
                         break;
                     case R.id.post:
-                        intent = new Intent(homePage.this,Post.class);
+                        intent = new Intent(Profile.this,Post.class);
                         startActivity(intent);
                         break;
 
                     case R.id.message:
-                        intent = new Intent(homePage.this,Message.class);
+                        intent = new Intent(Profile.this,Message.class);
                         startActivity(intent);
                         break;
                     case R.id.profile:
-                        intent = new Intent(homePage.this,Profile.class);
-                        startActivity(intent);
                         break;
                 }
 
@@ -56,3 +55,4 @@ public class homePage extends AppCompatActivity {
     }
 
 }
+
