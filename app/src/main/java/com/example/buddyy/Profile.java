@@ -20,7 +20,7 @@ public class Profile extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setContentView(R.layout.profiler);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);

@@ -16,7 +16,7 @@ public class mainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+
     }
 
     public void signIn(View view){
