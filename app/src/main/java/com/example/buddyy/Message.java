@@ -72,8 +72,21 @@ public class Message extends AppCompatActivity {
         animalNames.add("Ava Alzafarani");
         animalNames.add("Hannah Baker");
         animalNames.add("Levi Strootman");
+        animalNames.add("Raven Reyes");
+        animalNames.add("Maxwell James");
+        animalNames.add("Ava Alzafarani");
+        animalNames.add("Hannah Baker");
+        animalNames.add("Levi Strootman");
+
+        pictures.add(R.drawable.prof);
 
 
+        pictures.add(R.drawable.cas);
+
+        pictures.add(R.drawable.baby);
+
+        pictures.add(R.drawable.bestfriend);
+        pictures.add(R.drawable.mancool);
         pictures.add(R.drawable.prof);
 
 

@@ -27,8 +27,6 @@
 
         android:layout_width="409dp"
         android:layout_height="68dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
         app:itemIconTint="@color/common_google_signin_btn_text_dark_pressed"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
