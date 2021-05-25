@@ -2,12 +2,14 @@ package com.example.buddyy;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -19,11 +21,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     private List<String> mData;
     private LayoutInflater mInflater;
-    private List<Drawable> pictures;
+    private List<Integer> pictures;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, List<String> data,List<Drawable> pictures) {
+    MyRecyclerViewAdapter(Context context, List<String> data,List<Integer> pictures) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.pictures = pictures;
@@ -38,12 +40,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     // binds the data to the TextView in each row
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String animal = mData.get(position);
         holder.myTextView.setText(animal);
-        Drawable pic = pictures.get(position);
-        holder.pic.setBackground(pic);
+        holder.pic.setImageResource(pictures.get(position));
     }
 
     // total number of rows

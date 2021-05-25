@@ -65,12 +65,26 @@ public class Message extends AppCompatActivity {
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
-        List<Drawable> pictures = new ArrayList<Drawable>();
-        for(int i = 0; i<1;i++){
-            animalNames.add("lol " + i);
-        }
-        Drawable image=(Drawable)getResources().getDrawable(R.drawable.message);
-        pictures.add(image);
+        List<Integer> pictures = new ArrayList<Integer>();
+
+        animalNames.add("Raven Reyes");
+        animalNames.add("Maxwell James");
+        animalNames.add("Ava Alzafarani");
+        animalNames.add("Hannah Baker");
+        animalNames.add("Levi Strootman");
+
+
+        pictures.add(R.drawable.prof);
+
+
+        pictures.add(R.drawable.cas);
+
+        pictures.add(R.drawable.baby);
+
+        pictures.add(R.drawable.bestfriend);
+        pictures.add(R.drawable.mancool);
+
+
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recycle);
