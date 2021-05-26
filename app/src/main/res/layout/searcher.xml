@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#000000"
     android:windowSoftInputMode="adjustResize"
     tools:context=".mainScreen">
@@ -16,9 +16,6 @@
 
         android:layout_width="409dp"
         android:layout_height="68dp"
-        android:descendantFocusability="beforeDescendants"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         app:itemIconTint="@color/common_google_signin_btn_text_dark_pressed"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,15 +25,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="568dp"
-        android:layout_marginTop="36dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_width="411dp"
+        android:layout_height="528dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavView_Bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchText"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/searchText"
@@ -57,8 +54,6 @@
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
