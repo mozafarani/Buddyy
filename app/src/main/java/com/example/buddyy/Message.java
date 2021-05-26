@@ -65,7 +65,7 @@ public class Message extends AppCompatActivity {
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
-        List<Integer> pictures = new ArrayList<Integer>();
+        List<Integer> pictures = new ArrayList<>();
 
         animalNames.add("Raven Reyes");
         animalNames.add("Maxwell James");

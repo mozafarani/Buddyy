@@ -15,7 +15,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.ViewHolder> {
 
 
     private List<String> mData;
@@ -24,7 +24,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, List<String> data,List<Integer> pictures) {
+    RecyleViewSearch(Context context, List<String> data,List<Integer> pictures) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.pictures = pictures;
@@ -42,8 +42,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        String name = mData.get(position);
+        holder.myTextView.setText(name);
         holder.pic.setImageResource(pictures.get(position));
     }
 
