@@ -9,41 +9,74 @@
     tools:context=".mainScreen">
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="621dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/gksi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
         android:id="@+id/bottomNavView_Bar"
 
         android:layout_width="409dp"
         android:layout_height="68dp"
-        android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         app:itemIconTint="@color/common_google_signin_btn_text_dark_pressed"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        android:layout_width="380dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/hintborder"
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Search"
+        android:textSize="17sp"
+        android:paddingLeft="10dp"
+        android:textColor="#FFFFFF"
+        android:drawablePadding="7dp"
+        android:drawableLeft="@drawable/ic_search"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="543dp"
+        android:layout_marginTop="53dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavView_Bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="154dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="49dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="154dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="5dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
