@@ -25,9 +25,9 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    RecyclerViewHome(Context context, List<String> data, List<Integer> pictures, List<String> titles, List<String> descriptions) {
+    RecyclerViewHome(Context context, List<String> names, List<Integer> pictures, List<String> titles, List<String> descriptions) {
         this.mInflater = LayoutInflater.from(context);
-        this.names = data;
+        this.names = names;
         this.pictures = pictures;
         this.titles = titles;
         this.descriptions = descriptions;
@@ -37,7 +37,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = mInflater.inflate(R.layout.recyclerview_home, parent, false);
         return new ViewHolder(view);
     }
 
@@ -48,6 +48,9 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         String name = names.get(position);
         holder.name.setText(name);
         holder.pic.setImageResource(pictures.get(position));
+        String title = titles.get(position);
+        holder.title.setText(title);
+        holder.description.setText(descriptions.get(position));
     }
 
     // total number of rows
@@ -63,7 +66,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         CircleImageView pic;
         TextView title;
         TextView description;
-        int count = 0;
+
         // TODO: add the comments thing later (when connected to the db).
         //List<String> comments;
 
@@ -73,7 +76,6 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
             pic = itemView.findViewById(R.id.profile_image_home);
             description = itemView.findViewById(R.id.home_text_post);
             title = itemView.findViewById(R.id.title_home);
-            count = 0;
             itemView.setOnClickListener(this);
         }
 

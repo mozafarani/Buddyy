@@ -22,19 +22,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        remember = findViewById(R.id.rememberMe);
-
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox  = preferences.getString("remember", "");
-
+        remember = findViewById(R.id.rememberMe);
 
         if(checkbox.equals("true")){
             Intent intent = new Intent(this, homePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }else{
-            Toast.makeText(MainActivity.this, "Please Sign In", Toast.LENGTH_SHORT).show();
+
         }
+
     }
 
 
@@ -96,5 +95,10 @@ public class MainActivity extends AppCompatActivity {
         //code to check if this checkbox is checked!
         CheckBox rememberMe = (CheckBox)findViewById(R.id.rememberMe);
         return rememberMe.isChecked();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
