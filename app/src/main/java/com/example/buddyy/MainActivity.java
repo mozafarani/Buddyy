@@ -28,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(checkbox.equals("true")){
             Intent intent = new Intent(this, homePage.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
+            Intent intent2 = new Intent(this, homePage.class);
+            intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent2);
         }else{
 
         }

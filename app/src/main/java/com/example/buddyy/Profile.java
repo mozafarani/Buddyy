@@ -2,16 +2,17 @@ package com.example.buddyy;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 public class Profile extends AppCompatActivity {
     //TODO: Rezise images when imprted in
@@ -55,6 +56,19 @@ public class Profile extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+    }
+
+    public void logout(View view){
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("remember","false");
+        editor.apply();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
