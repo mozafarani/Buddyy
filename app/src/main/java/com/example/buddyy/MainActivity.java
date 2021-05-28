@@ -11,9 +11,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     CheckBox remember;
     boolean logged_in = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (checkbox.equals("true")) {
 
-            if(logged_in){
+            if (logged_in) {
                 Intent intent2 = new Intent(this, Home.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent2);
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         } else if (emailTxt.getText().toString().equals("")) {
             Toast.makeText(MainActivity.this, "Please, enter an email!", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             if (db.userExists(model)) {
                 Intent intent = new Intent(this, Home.class);
                 startActivity(intent);
@@ -85,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
         onCheckedChanged(view);
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            // already signed in
+        } else {
+            // not signed in
+        }
 
     }
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Buddyy</string>
+
+    <string name="facebook_application_id" translatable="false">com.example.buddyy</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbcom.example.buddyy</string>
+
 </resources>
