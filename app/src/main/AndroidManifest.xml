@@ -17,7 +17,7 @@
         <activity android:name=".Message" />
         <activity android:name=".Home" />
 
-        <activity android:name=".homePage" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

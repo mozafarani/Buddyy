@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkbox.equals("true")) {
 
             if(logged_in){
-                Intent intent2 = new Intent(this, homePage.class);
+                Intent intent2 = new Intent(this, Home.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent2);
                 MainActivity.this.finish();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Please, enter an email!", Toast.LENGTH_SHORT).show();
         }else{
             if (db.userExists(model)) {
-                Intent intent = new Intent(this, homePage.class);
+                Intent intent = new Intent(this, Home.class);
                 startActivity(intent);
                 logged_in = true;
             } else {

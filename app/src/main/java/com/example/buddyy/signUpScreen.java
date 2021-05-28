@@ -33,8 +33,6 @@ public class signUpScreen extends AppCompatActivity {
         UserModel model = new UserModel(nameUp.getText().toString(),emailUp.getText().toString(),passwordUp.getText().toString());
         DatabaseOperations databaseOperations = new DatabaseOperations(signUpScreen.this);
         boolean b = databaseOperations.addUser(model);
-
-        Toast.makeText(signUpScreen.this, "Success = " + b, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "477842577068",
+    "project_id": "buddy-9670e",
+    "storage_bucket": "buddy-9670e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477842577068:android:3c394e9217f6e137f0f109",
+        "android_client_info": {
+          "package_name": "com.example.buddyy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477842577068-n3isstuktjkd4gd28r7am5egviemmas1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.buddyy",
+            "certificate_hash": "1ef141656ef169f35676c3a3a716183159e00dbb"
+          }
+        },
+        {
+          "client_id": "477842577068-oucka3p4hdoordlmv0cdqns4iligq64u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjBKM1YC-nFK-jigtnTMzbWfHwGOjeq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477842577068-oucka3p4hdoordlmv0cdqns4iligq64u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
