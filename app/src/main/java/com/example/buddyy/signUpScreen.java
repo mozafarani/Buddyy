@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
-public class mainScreen extends AppCompatActivity {
+public class signUpScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class mainScreen extends AppCompatActivity {
         EditText nameUp = (EditText)findViewById(R.id.nameUp);
 
         UserModel model = new UserModel(nameUp.getText().toString(),emailUp.getText().toString(),passwordUp.getText().toString());
-        DatabaseOperations databaseOperations = new DatabaseOperations(mainScreen.this);
+        DatabaseOperations databaseOperations = new DatabaseOperations(signUpScreen.this);
         boolean b = databaseOperations.addUser(model);
 
-        Toast.makeText(mainScreen.this, "Success = " + b, Toast.LENGTH_SHORT).show();
+        Toast.makeText(signUpScreen.this, "Success = " + b, Toast.LENGTH_SHORT).show();
     }
 
 }
