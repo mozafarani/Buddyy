@@ -66,6 +66,9 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        RecyclerView v = (RecyclerView) findViewById(R.id.recyclerhome);
+        v.setNestedScrollingEnabled(false);
+
         List<String> names = new ArrayList<>();
         List<Integer> pictures = new ArrayList<>();
         List<String> titles = new ArrayList<>();

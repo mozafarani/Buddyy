@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gksi"
-    tools:context=".mainScreen">
+    tools:context=".signUpScreen">
 
 
     <TextView
@@ -105,7 +105,6 @@
         android:layout_width="222dp"
         android:layout_height="32dp"
         android:layout_marginTop="280dp"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/rounded_edittext"
         android:drawableLeft="@drawable/ic_pass_closed"
 
@@ -117,35 +116,10 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/confirmPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/confirmPassword"
-        android:layout_width="222dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="360dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/rounded_edittext"
-        android:drawableLeft="@drawable/ic_pass_closed"
-        android:drawablePadding="7dp"
-        android:ems="10"
-
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/register"
@@ -176,22 +150,6 @@
         app:layout_constraintBottom_toTopOf="@+id/nameUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.265"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Confirm Password"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/confirmPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

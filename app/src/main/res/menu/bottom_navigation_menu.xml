@@ -21,7 +21,7 @@
     </item>
     <item
         android:id="@+id/message"
-        android:icon="@drawable/message"
+        android:icon="@drawable/message_bottom"
         android:title=""
         >
     </item>

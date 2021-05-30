@@ -3,6 +3,7 @@ package com.example.buddyy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -94,6 +95,7 @@ public class Profile extends AppCompatActivity {
         }else{
             TextView view = (TextView) findViewById(R.id.nameProfile);
             view.setText(firebaseUser.getDisplayName());
+            view.setGravity(Gravity.CENTER);
         }
     }
 

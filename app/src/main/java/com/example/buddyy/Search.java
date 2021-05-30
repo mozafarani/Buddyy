@@ -17,9 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Search extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     RecyleViewSearch adapter;
@@ -31,7 +28,8 @@ public class Search extends AppCompatActivity {
          firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.searchButtom);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -68,45 +66,46 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        ArrayList<String> people = new ArrayList<>();
-        List<Integer> pictures = new ArrayList<>();
-
-        people.add("Raven Reyes");
-        people.add("Maxwell James");
-        people.add("Ava Alzafarani");
-        people.add("Hannah Baker");
-        people.add("Levi Strootman");
-        people.add("Raven Reyes");
-        people.add("Maxwell James");
-        people.add("Ava Alzafarani");
-        people.add("Hannah Baker");
-        people.add("Levi Strootman");
-
-        pictures.add(R.drawable.prof);
-
-
-        pictures.add(R.drawable.cas);
-
-        pictures.add(R.drawable.baby);
-
-        pictures.add(R.drawable.bestfriend);
-        pictures.add(R.drawable.mancool);
-        pictures.add(R.drawable.prof);
-
-
-        pictures.add(R.drawable.cas);
-
-        pictures.add(R.drawable.baby);
-
-        pictures.add(R.drawable.bestfriend);
-        pictures.add(R.drawable.mancool);
+//        ArrayList<String> people = new ArrayList<>();
+//        List<Integer> pictures = new ArrayList<>();
+//
+//        people.add("Raven Reyes");
+//        people.add("Maxwell James");
+//        people.add("Ava Alzafarani");
+//        people.add("Hannah Baker");
+//        people.add("Levi Strootman");
+//        people.add("Raven Reyes");
+//        people.add("Maxwell James");
+//        people.add("Ava Alzafarani");
+//        people.add("Hannah Baker");
+//        people.add("Levi Strootman");
+//
+//        pictures.add(R.drawable.prof);
+//
+//
+//        pictures.add(R.drawable.cas);
+//
+//        pictures.add(R.drawable.baby);
+//
+//        pictures.add(R.drawable.bestfriend);
+//        pictures.add(R.drawable.mancool);
+//        pictures.add(R.drawable.prof);
+//
+//
+//        pictures.add(R.drawable.cas);
+//
+//        pictures.add(R.drawable.baby);
+//
+//        pictures.add(R.drawable.bestfriend);
+//        pictures.add(R.drawable.mancool);
 
 
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyleViewSearch(this, people,pictures);
+        ((LinearLayoutManager)recyclerView.getLayoutManager()).setStackFromEnd(true);
+        //adapter = new RecyleViewSearch(this, people,pictures);
         adapter.setClickListener(this::onItemClick);
         recyclerView.setAdapter(adapter);
 
