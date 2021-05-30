@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -131,6 +134,73 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser != null){
+            reload();
+        }
+    }
+    // [END on_start_check_user]
 
+    public void login(View view){
+        EditText text = findViewById(R.id.emailTxt);
+        EditText pass = findViewById(R.id.passTxt);
 
+        signIn(text.getText().toString(),pass.getText().toString());
+    }
+
+    private void signIn(String email, String password) {
+        // [START sign_in_with_email]
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+        // [END sign_in_with_email]
+    }
+
+    private void sendEmailVerification() {
+        // Send verification email
+        // [START send_email_verification]
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // Email sent
+                    }
+                });
+        // [END send_email_verification]
+    }
+
+    private void reload() { }
+
+    public void signUp(View view){
+        Intent intent = new Intent(this, signUpScreen.class);
+        startActivity(intent);
+    }
+
+    private void updateUI(FirebaseUser user) {
+
+        if(user != null){
+            Intent intent = new Intent(MainActivity.this, Home.class);
+            startActivity(intent);
+        }
+    }
 }
