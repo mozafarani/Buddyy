@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textView16"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -55,18 +55,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="118dp"
-        android:layout_height="34dp"
+        android:id="@+id/nameProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="144dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="John Doe"
         android:textColor="#FFFCFC"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
@@ -91,7 +89,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/textView16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
     <TextView
         android:id="@+id/textView16"
@@ -104,7 +102,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
     <TextView
         android:id="@+id/textView17"
@@ -118,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -162,7 +160,6 @@
         android:text="LOG OUT"
         android:textColor="#FFFFFF"
         android:textSize="25dp"
-        android:onClick="logout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView20"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -179,7 +176,7 @@
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
     <TextView
         android:id="@+id/textView21"

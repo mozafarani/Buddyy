@@ -1,14 +1,11 @@
 package com.example.buddyy;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Objects;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class signUpScreen extends AppCompatActivity {
 
@@ -30,9 +27,7 @@ public class signUpScreen extends AppCompatActivity {
         EditText passwordUp = (EditText)findViewById(R.id.passwordUp);
         EditText nameUp = (EditText)findViewById(R.id.nameUp);
 
-        UserModel model = new UserModel(nameUp.getText().toString(),emailUp.getText().toString(),passwordUp.getText().toString());
-        DatabaseOperations databaseOperations = new DatabaseOperations(signUpScreen.this);
-        boolean b = databaseOperations.addUser(model);
+
     }
 
 }

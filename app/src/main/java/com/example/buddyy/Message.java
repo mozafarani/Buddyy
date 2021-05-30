@@ -2,7 +2,6 @@ package com.example.buddyy;
 
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.shadow.ShadowDrawableWrapper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Message extends AppCompatActivity {
     MyRecyclerViewAdapter adapter;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -39,14 +37,17 @@ public class Message extends AppCompatActivity {
                     case R.id.home:
                         intent = new Intent(Message.this, Home.class);
                         startActivity(intent);
+                        Message.this.finish();
                         break;
                     case R.id.search:
                         intent = new Intent(Message.this, Search.class);
                         startActivity(intent);
+                        Message.this.finish();
                         break;
                     case R.id.post:
                         intent = new Intent(Message.this, Post.class);
                         startActivity(intent);
+                        Message.this.finish();
                         break;
 
                     case R.id.message:
@@ -55,6 +56,7 @@ public class Message extends AppCompatActivity {
                     case R.id.profile:
                         intent = new Intent(Message.this, Profile.class);
                         startActivity(intent);
+                        Message.this.finish();
                         break;
                 }
 
@@ -105,10 +107,21 @@ public class Message extends AppCompatActivity {
         adapter = new MyRecyclerViewAdapter(this, animalNames,pictures);
         adapter.setClickListener(this::onItemClick);
         recyclerView.setAdapter(adapter);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        checkUser();
     }
 
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkUser() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser == null){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 
 }

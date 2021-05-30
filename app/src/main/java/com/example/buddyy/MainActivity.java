@@ -1,113 +1,136 @@
 package com.example.buddyy;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class MainActivity extends AppCompatActivity {
 
     CheckBox remember;
     boolean logged_in = false;
+    private static final int RC_SIGN_IN = 100;
+    private GoogleSignInClient googleSignInClient;
+
+
+    private FirebaseAuth firebaseAuth;
+
+    private static final String TAG = "GOOGLE_SIGN_IN_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-        String checkbox = preferences.getString("remember", "");
-        remember = findViewById(R.id.rememberMe);
 
-        if (checkbox.equals("true")) {
+        // Configure Google Sign In
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-            if (logged_in) {
-                Intent intent2 = new Intent(this, Home.class);
-                intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent2);
-                MainActivity.this.finish();
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (checkUser()) {
+
+        } else {
+
+            findViewById(R.id.googleSignIn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "onClick: begin Google SignIn");
+                    Intent intent = googleSignInClient.getSignInIntent();
+                    startActivityForResult(intent, RC_SIGN_IN);
+                }
+            });
+        }
+    }
+
+
+    private boolean checkUser() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            Log.d(TAG, "checkUser: Already logged in");
+            startActivity(new Intent(this, Home.class));
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Log.d(TAG, "onActivityResult:  Google Signin intent result");
+            Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = accountTask.getResult(ApiException.class);
+                firebaseAuthWithGoogleAccount(account);
+            } catch (Exception e) {
+                Log.d(TAG, "onActivityResult: " + e.getMessage());
             }
         }
 
     }
 
-    public void onCheckedChanged(View view) {
+    private void firebaseAuthWithGoogleAccount(GoogleSignInAccount account) {
+        Log.d(TAG, "firebaseAuthWithGoogleAccount: begin firebase auth with google account");
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Log.d(TAG, "onSuccess: Logged In");
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                String uid = firebaseUser.getUid();
+                String email = firebaseUser.getEmail();
 
-        if (remember.isChecked()) {
-            SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("remember", "true");
-            editor.apply();
-        } else if (!remember.isChecked()) {
-            SharedPreferences sharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("remember", "false");
-            editor.apply();
+                Log.d(TAG, "onSuccess: " + email);
+                Log.d(TAG, "onSuccess: " + uid);
 
-        }
+                if (authResult.getAdditionalUserInfo().isNewUser()) {
+                    Log.d(TAG, "onSuccess: Account created...\n" + email);
+                    //TODO: DO THIS LATER
+                } else {
+                    Log.d(TAG, "onSuccess: Existing user...\n");
+                }
 
-    }
-
-    public void login(View view) {
-
-        EditText emailTxt = (EditText) findViewById(R.id.emailTxt);
-        EditText passTxt = (EditText) findViewById(R.id.passTxt);
-
-        UserModel model = new UserModel("", emailTxt.getText().toString(), passTxt.getText().toString());
-        DatabaseOperations db = new DatabaseOperations(MainActivity.this);
-
-
-        if (passTxt.getText().toString().equals("")) {
-            Toast.makeText(MainActivity.this, "Please, enter a password!", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (emailTxt.getText().toString().equals("")) {
-            Toast.makeText(MainActivity.this, "Please, enter an email!", Toast.LENGTH_SHORT).show();
-        } else {
-            if (db.userExists(model)) {
-                Intent intent = new Intent(this, Home.class);
-                startActivity(intent);
-                logged_in = true;
-            } else {
-                Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, Home.class));
+                finish();
             }
-        }
-
-        onCheckedChanged(view);
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            // already signed in
-        } else {
-            // not signed in
-        }
-
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: Login Failed" + e.getMessage());
+            }
+        });
     }
 
-    public void signUp(View view) {
-        Intent intent = new Intent(this, signUpScreen.class);
-        startActivity(intent);
-    }
-
-    public boolean itemClicked(View v) {
-        //code to check if this checkbox is checked!
-        CheckBox rememberMe = (CheckBox) findViewById(R.id.rememberMe);
-        return rememberMe.isChecked();
-    }
 
 
 }

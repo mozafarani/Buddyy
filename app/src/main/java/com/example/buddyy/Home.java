@@ -4,24 +4,22 @@ package com.example.buddyy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Home extends AppCompatActivity {
     RecyclerViewHome adapter;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -37,20 +35,28 @@ public class Home extends AppCompatActivity {
                         break;
                     case R.id.search:
                         intent = new Intent(Home.this,Search.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        Home.this.finish();
                         break;
                     case R.id.post:
                         intent = new Intent(Home.this,Post.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        Home.this.finish();
                         break;
 
                     case R.id.message:
                         intent = new Intent(Home.this,Message.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        Home.this.finish();
                         break;
                     case R.id.profile:
                         intent = new Intent(Home.this, Profile.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        Home.this.finish();
                         break;
                 }
 
@@ -122,8 +128,10 @@ public class Home extends AppCompatActivity {
         adapter = new RecyclerViewHome(this, names, pictures, titles, description);
         recyclerView.setAdapter(adapter);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
     }
+
 
 }
 

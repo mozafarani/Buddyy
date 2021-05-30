@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,18 +14,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Search extends AppCompatActivity {
-
+    private FirebaseAuth firebaseAuth;
     RecyleViewSearch adapter;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setContentView(R.layout.searcher);
+
+         firebaseAuth = FirebaseAuth.getInstance();
+        checkUser();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,21 +40,25 @@ public class Search extends AppCompatActivity {
                     case R.id.home:
                         intent = new Intent(Search.this, Home.class);
                         startActivity(intent);
+                        Search.this.finish();
                         break;
                     case R.id.search:
                         break;
                     case R.id.post:
                         intent = new Intent(Search.this,Post.class);
                         startActivity(intent);
+                        Search.this.finish();
                         break;
 
                     case R.id.message:
                         intent = new Intent(Search.this,Message.class);
                         startActivity(intent);
+                        Search.this.finish();
                         break;
                     case R.id.profile:
                         intent = new Intent(Search.this,Profile.class);
                         startActivity(intent);
+                        Search.this.finish();
                         break;
                 }
 
@@ -107,6 +114,14 @@ public class Search extends AppCompatActivity {
 
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkUser() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser == null){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 }
 
