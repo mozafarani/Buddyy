@@ -41,8 +41,6 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: FIX PHOTO OF NEW USER IFF NULL
-
     CheckBox remember;
     boolean logged_in = false;
     private static final int RC_SIGN_IN = 100;

@@ -79,10 +79,10 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name;
         CircleImageView pic;
         TextView title;
         TextView description;
+        TextView likes;
 
         // TODO: add the comments thing later (when connected to the db).
         //List<String> comments;
@@ -92,6 +92,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
             pic = itemView.findViewById(R.id.profile_image_home);
             description = itemView.findViewById(R.id.home_text_post);
             title = itemView.findViewById(R.id.title_home);
+
             itemView.setOnClickListener(this);
         }
 

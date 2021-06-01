@@ -30,7 +30,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
-    //TODO: Rezise images when imprted in
 
     private FirebaseAuth firebaseAuth;
     private ImageView image;
