@@ -1,6 +1,7 @@
 package com.example.buddyy;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,13 +25,14 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
 
     private LayoutInflater mInflater;
     private List<String> names;
-    private List<Integer> pictures;
+    private List<String> pictures;
     private List<String> titles;
     private List<String> descriptions;
     private ItemClickListener mClickListener;
+    private StorageReference storageReference;
 
     // data is passed into the constructor
-    RecyclerViewHome(Context context, List<String> names, List<Integer> pictures, List<String> titles, List<String> descriptions) {
+    RecyclerViewHome(Context context, List<String> names, List<String> pictures, List<String> titles, List<String> descriptions) {
         this.mInflater = LayoutInflater.from(context);
         this.names = names;
         this.pictures = pictures;
@@ -46,7 +53,18 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.pic.setImageResource(pictures.get(position));
+        //holder.pic;
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profileRef = storageReference.child("users/"+pictures.get(position)+"profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.pic);
+            }
+        });
+
         String title = titles.get(position);
         holder.title.setText(title);
         holder.description.setText(descriptions.get(position));
