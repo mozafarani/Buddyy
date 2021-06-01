@@ -1,7 +1,10 @@
 package com.example.buddyy;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +31,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     boolean logged_in = false;
     private static final int RC_SIGN_IN = 100;
     private GoogleSignInClient googleSignInClient;
-
+    private StorageReference storageReference;
 
     private FirebaseAuth firebaseAuth;
 
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (authResult.getAdditionalUserInfo().isNewUser()) {
                     Log.d(TAG, "onSuccess: Account created...\n" + email);
-                    //TODO: DO THIS LATER
+                    addImage();
                 } else {
                     Log.d(TAG, "onSuccess: Existing user...\n");
                 }
@@ -136,22 +146,59 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void addImage() {
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageReference.child("users/" + firebaseAuth.getCurrentUser().getUid() + "/profile.jpg");
+        Uri imageUri = Uri.parse("android.resource://"+ R.class.getPackage().getName()+"/"+R.drawable.basicprofile);
+        try {
+            InputStream stream = getContentResolver().openInputStream(imageUri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    public static Uri getUriToDrawable(@NonNull Context context,
+                                       @AnyRes int drawableId) {
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId));
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             reload();
         }
     }
     // [END on_start_check_user]
 
-    public void login(View view){
+    public void login(View view) {
         EditText text = findViewById(R.id.emailTxt);
         EditText pass = findViewById(R.id.passTxt);
 
-        signIn(text.getText().toString(),pass.getText().toString());
+        signIn(text.getText().toString(), pass.getText().toString());
     }
 
     private void signIn(String email, String password) {
@@ -191,16 +238,17 @@ public class MainActivity extends AppCompatActivity {
         // [END send_email_verification]
     }
 
-    private void reload() { }
+    private void reload() {
+    }
 
-    public void signUp(View view){
+    public void signUp(View view) {
         Intent intent = new Intent(this, signUpScreen.class);
         startActivity(intent);
     }
 
     private void updateUI(FirebaseUser user) {
 
-        if(user != null){
+        if (user != null) {
             Intent intent = new Intent(MainActivity.this, Home.class);
             startActivity(intent);
         }

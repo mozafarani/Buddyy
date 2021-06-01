@@ -57,7 +57,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("users/"+pictures.get(position)+"profile.jpg");
+        StorageReference profileRef = storageReference.child("users/"+pictures.get(position)+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

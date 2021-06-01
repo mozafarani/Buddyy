@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Home extends AppCompatActivity {
     RecyclerViewHome adapter;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
-
+    private StorageReference storageReference;
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
         RecyclerView v = (RecyclerView) findViewById(R.id.recyclerhome);
         v.setNestedScrollingEnabled(false);
         List<String> names = new ArrayList<>();
@@ -117,7 +119,6 @@ public class Home extends AppCompatActivity {
         });
 
     }
-
 
 }
 
