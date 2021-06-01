@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,14 +31,16 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     private List<String> descriptions;
     private ItemClickListener mClickListener;
     private StorageReference storageReference;
+    private List<Integer> likes = new ArrayList<>();
 
     // data is passed into the constructor
-    RecyclerViewHome(Context context, List<String> names, List<String> pictures, List<String> titles, List<String> descriptions) {
+    RecyclerViewHome(Context context, List<String> names, List<String> pictures, List<String> titles, List<String> descriptions, List<Integer> likes) {
         this.mInflater = LayoutInflater.from(context);
         this.names = names;
         this.pictures = pictures;
         this.titles = titles;
         this.descriptions = descriptions;
+        this.likes = likes;
     }
 
     // inflates the row layout from xml when needed
@@ -68,6 +71,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         String title = titles.get(position);
         holder.title.setText(title);
         holder.description.setText(descriptions.get(position));
+        holder.like.setText(likes.get(position) + "");
     }
 
     // total number of rows
@@ -82,7 +86,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         CircleImageView pic;
         TextView title;
         TextView description;
-        TextView likes;
+        TextView like;
 
         // TODO: add the comments thing later (when connected to the db).
         //List<String> comments;
@@ -92,7 +96,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
             pic = itemView.findViewById(R.id.profile_image_home);
             description = itemView.findViewById(R.id.home_text_post);
             title = itemView.findViewById(R.id.title_home);
-
+            like = itemView.findViewById(R.id.like_count);
             itemView.setOnClickListener(this);
         }
 

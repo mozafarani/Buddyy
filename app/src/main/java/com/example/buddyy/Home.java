@@ -85,12 +85,13 @@ public class Home extends AppCompatActivity {
         List<String> pictures = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         List<String> description = new ArrayList<>();
+        List<Integer> likes = new ArrayList<>();
 
         // set up the RecyclerView
         LinearLayoutManager manager = new LinearLayoutManager(this);
         RecyclerView recyclerView = findViewById(R.id.recyclerhome);
         recyclerView.setLayoutManager(manager);
-        adapter = new RecyclerViewHome(this, names, pictures, titles, description);
+        adapter = new RecyclerViewHome(this, names, pictures, titles, description,likes);
         recyclerView.setAdapter(adapter);
 
 
@@ -107,7 +108,8 @@ public class Home extends AppCompatActivity {
                     names.add(x.get(i).getUser());
                     pictures.add(x.get(i).getUser());
                     titles.add(x.get(i).getTitle());
-                    description.add(x.get(i++).getDescription());
+                    description.add(x.get(i).getDescription());
+                    likes.add(x.get(i++).getLikes());
                 }
                 adapter.notifyDataSetChanged();
             }
