@@ -13,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,9 @@ public class Home extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         super.onPostCreate(savedInstanceState);
         setContentView(R.layout.homer);
 
@@ -69,60 +77,29 @@ public class Home extends AppCompatActivity {
         RecyclerView v = (RecyclerView) findViewById(R.id.recyclerhome);
         v.setNestedScrollingEnabled(false);
 
+        final List<Posts>[] x = new List[]{null};
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Object newPost = dataSnapshot.getValue();
+                x[0] = (List<Posts>) newPost;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         List<String> names = new ArrayList<>();
         List<Integer> pictures = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         List<String> description = new ArrayList<>();
 
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
 
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
 
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
-
-        names.add("Abdullah Alzafarani");
-        pictures.add(R.drawable.mancool);
-        description.add("I have been lonely my whole life, but this app changed my life completely. I have found my best friend on here and soulmate too.");
-        titles.add("I love this new app!");
 
         // set up the RecyclerView
         LinearLayoutManager manager  = new LinearLayoutManager(this);
@@ -131,7 +108,7 @@ public class Home extends AppCompatActivity {
         adapter = new RecyclerViewHome(this, names, pictures, titles, description);
         recyclerView.setAdapter(adapter);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+
 
     }
 

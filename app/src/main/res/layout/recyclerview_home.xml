@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -37,35 +37,23 @@
 
 
     <LinearLayout
+        android:id="@+id/nbjhv"
         android:layout_width="332dp"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="3dp"
         android:layout_toEndOf="@+id/re1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name_home"
-            android:layout_width="243dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:textAllCaps="true"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toEndOf="@+id/profile_image_home"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/title_home"
-            android:layout_width="243dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-smallcaps"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -91,10 +79,10 @@
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_below="@+id/nbjhv"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="66dp"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
 

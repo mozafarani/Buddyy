@@ -45,8 +45,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String name = names.get(position);
-        holder.name.setText(name);
+
         holder.pic.setImageResource(pictures.get(position));
         String title = titles.get(position);
         holder.title.setText(title);
@@ -72,7 +71,6 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.name_home);
             pic = itemView.findViewById(R.id.profile_image_home);
             description = itemView.findViewById(R.id.home_text_post);
             title = itemView.findViewById(R.id.title_home);

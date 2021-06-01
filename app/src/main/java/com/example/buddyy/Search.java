@@ -17,6 +17,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Search extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     RecyleViewSearch adapter;
@@ -66,8 +69,8 @@ public class Search extends AppCompatActivity {
             }
         });
 
-//        ArrayList<String> people = new ArrayList<>();
-//        List<Integer> pictures = new ArrayList<>();
+        ArrayList<String> people = new ArrayList<>();
+        List<Integer> pictures = new ArrayList<>();
 //
 //        people.add("Raven Reyes");
 //        people.add("Maxwell James");
@@ -105,7 +108,7 @@ public class Search extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recyclerView.getLayoutManager()).setStackFromEnd(true);
-        //adapter = new RecyleViewSearch(this, people,pictures);
+        adapter = new RecyleViewSearch(this, people,pictures);
         adapter.setClickListener(this::onItemClick);
         recyclerView.setAdapter(adapter);
 

@@ -127,23 +127,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <CheckBox
-        android:id="@+id/rememberMe"
-        android:layout_width="137dp"
-        android:layout_height="21dp"
-        android:scaleX="0.70"
-        android:scaleY="0.70"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:textStyle="bold|italic"
-        app:buttonTint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.299"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passTxt"
-        app:layout_constraintVertical_bias="0.034" />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="227dp"
@@ -185,44 +168,14 @@
         app:layout_constraintVertical_bias="0.023" />
 
 
-    <Button
-        android:id="@+id/facebookBtn"
-        android:layout_width="227dp"
-        android:layout_height="42dp"
-        android:background="#416BC1"
-        android:text="FaceBook"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        app:layout_constraintVertical_bias="0.38" />
-
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleSignIn"
-        android:layout_width="match_parent"
+        android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/facebookBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remember me"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/rememberMe"
-        app:layout_constraintEnd_toEndOf="@+id/rememberMe"
-        app:layout_constraintHorizontal_bias="0.683"
-        app:layout_constraintStart_toStartOf="@+id/rememberMe"
-        app:layout_constraintTop_toTopOf="@+id/rememberMe"
-        app:layout_constraintVertical_bias="0.2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
