@@ -4,8 +4,6 @@ package com.example.buddyy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,37 +69,34 @@ public class Search extends AppCompatActivity {
 
         ArrayList<String> people = new ArrayList<>();
         List<Integer> pictures = new ArrayList<>();
-//
-//        people.add("Raven Reyes");
-//        people.add("Maxwell James");
-//        people.add("Ava Alzafarani");
-//        people.add("Hannah Baker");
-//        people.add("Levi Strootman");
-//        people.add("Raven Reyes");
-//        people.add("Maxwell James");
-//        people.add("Ava Alzafarani");
-//        people.add("Hannah Baker");
-//        people.add("Levi Strootman");
-//
-//        pictures.add(R.drawable.prof);
-//
-//
-//        pictures.add(R.drawable.cas);
-//
-//        pictures.add(R.drawable.baby);
-//
-//        pictures.add(R.drawable.bestfriend);
-//        pictures.add(R.drawable.mancool);
-//        pictures.add(R.drawable.prof);
-//
-//
-//        pictures.add(R.drawable.cas);
-//
-//        pictures.add(R.drawable.baby);
-//
-//        pictures.add(R.drawable.bestfriend);
-//        pictures.add(R.drawable.mancool);
 
+        String result = FirebaseAuth.getInstance().getUid();
+
+
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                names.clear();
+//                pictures.clear();
+//
+//                int i = 0;
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    GenericTypeIndicator<List<Posts>> genericTypeIndicator = new GenericTypeIndicator<List<Posts>>() {
+//                    };
+//                    List<Posts> x = dataSnapshot.getValue(genericTypeIndicator);
+//                    names.add(x.get(i).getUser());
+//                    pictures.add(null);
+//
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
         // set up the RecyclerView
@@ -109,14 +104,11 @@ public class Search extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recyclerView.getLayoutManager()).setStackFromEnd(true);
         adapter = new RecyleViewSearch(this, people,pictures);
-        adapter.setClickListener(this::onItemClick);
         recyclerView.setAdapter(adapter);
 
     }
 
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-    }
+
 
     private void checkUser() {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();

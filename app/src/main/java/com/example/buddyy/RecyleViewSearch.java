@@ -55,7 +55,7 @@ public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.View
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
         CircleImageView pic;
 

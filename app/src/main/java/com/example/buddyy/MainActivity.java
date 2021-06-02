@@ -31,12 +31,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private StorageReference storageReference;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference postDB;
 
     private static final String TAG = "GOOGLE_SIGN_IN_TAG";
 
@@ -129,6 +138,36 @@ public class MainActivity extends AppCompatActivity {
                 if (authResult.getAdditionalUserInfo().isNewUser()) {
                     Log.d(TAG, "onSuccess: Account created...\n" + email);
                     addImage();
+
+                    // ADD USER TO THE USER DATABASE
+
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
+                            List<String> x = dataSnapshot.getValue(genericTypeIndicator);
+
+                            if(x != null) {
+                                x.add("" + firebaseAuth.getUid());
+                                reference.setValue(x);
+                            }else{
+                                List<String> p = new ArrayList<>();
+                                p.add("" + firebaseAuth.getUid());
+                                reference.setValue(p);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 } else {
                     Log.d(TAG, "onSuccess: Existing user...\n");
                 }

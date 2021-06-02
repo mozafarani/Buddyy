@@ -4,6 +4,7 @@ package com.example.buddyy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,8 @@ public class Home extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
     private StorageReference storageReference;
+    private ImageView image;
+    private  RecyclerView recyclerView;
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -89,17 +92,22 @@ public class Home extends AppCompatActivity {
 
         // set up the RecyclerView
         LinearLayoutManager manager = new LinearLayoutManager(this);
-        RecyclerView recyclerView = findViewById(R.id.recyclerhome);
+        recyclerView = findViewById(R.id.recyclerhome);
         recyclerView.setLayoutManager(manager);
+
         adapter = new RecyclerViewHome(this, names, pictures, titles, description,likes);
         recyclerView.setAdapter(adapter);
 
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                names.clear();
+                pictures.clear();
+                titles.clear();
+                description.clear();
+                likes.clear();
                 int i = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     GenericTypeIndicator<List<Posts>> genericTypeIndicator = new GenericTypeIndicator<List<Posts>>() {
@@ -121,6 +129,5 @@ public class Home extends AppCompatActivity {
         });
 
     }
-
 }
 

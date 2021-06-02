@@ -6,6 +6,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,12 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -74,6 +81,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         holder.like.setText(likes.get(position) + "");
     }
 
+
     // total number of rows
     @Override
     public int getItemCount() {
@@ -87,9 +95,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
         TextView title;
         TextView description;
         TextView like;
-
-        // TODO: add the comments thing later (when connected to the db).
-        //List<String> comments;
+        ImageView likeButton;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -97,8 +103,70 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
             description = itemView.findViewById(R.id.home_text_post);
             title = itemView.findViewById(R.id.title_home);
             like = itemView.findViewById(R.id.like_count);
+            likeButton = itemView.findViewById(R.id.postLiker);
+            likeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   int postion = getAdapterPosition();
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference postDB = database.getReference("Posts");
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            GenericTypeIndicator<List<Posts>> genericTypeIndicator = new GenericTypeIndicator<List<Posts>>() {};
+                            List<Posts> x = dataSnapshot.getValue(genericTypeIndicator);
+
+
+                            if(x == null){
+                                x = new ArrayList<>();
+                            }
+
+
+                            x.get(postion).setLikes(x.get(postion).getLikes() + 1);
+                            postDB.setValue(x);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    DatabaseReference votesDB = database.getReference("Votes");
+                    DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("Votes");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            GenericTypeIndicator<List<Posts>> genericTypeIndicator = new GenericTypeIndicator<List<Posts>>() {};
+                            List<Posts> x = dataSnapshot.getValue(genericTypeIndicator);
+
+
+                            if(x == null){
+                                x = new ArrayList<>();
+                            }
+
+
+                            x.get(postion).setLikes(x.get(postion).getLikes() + 1);
+                            postDB.setValue(x);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            });
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {

@@ -45,4 +45,8 @@ public class Posts {
     public String getUser() {
         return user;
     }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }
