@@ -40,6 +40,7 @@ public class RecyclerViewHome extends RecyclerView.Adapter<RecyclerViewHome.View
     private StorageReference storageReference;
     private List<Integer> likes = new ArrayList<>();
 
+
     // data is passed into the constructor
     RecyclerViewHome(Context context, List<String> names, List<String> pictures, List<String> titles, List<String> descriptions, List<Integer> likes) {
         this.mInflater = LayoutInflater.from(context);

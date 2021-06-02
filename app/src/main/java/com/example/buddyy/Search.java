@@ -96,7 +96,7 @@ public class Search extends AppCompatActivity {
                         pictures.add(list.get(0));
                     }
 
-                
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -110,7 +110,7 @@ public class Search extends AppCompatActivity {
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ((LinearLayoutManager) recyclerView.getLayoutManager()).setStackFromEnd(true);
+        ((LinearLayoutManager) recyclerView.getLayoutManager()).setStackFromEnd(false);
         adapter = new RecyleViewSearch(this, people, pictures);
         recyclerView.setAdapter(adapter);
 
