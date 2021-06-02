@@ -1,6 +1,7 @@
 package com.example.buddyy;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,11 +26,12 @@ public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.View
 
     private List<String> mData;
     private LayoutInflater mInflater;
-    private List<Integer> pictures;
+    private List<String> pictures;
+    private StorageReference storageReference;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    RecyleViewSearch(Context context, List<String> data,List<Integer> pictures) {
+    RecyleViewSearch(Context context, List<String> data,List<String> pictures) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.pictures = pictures;
@@ -34,7 +41,7 @@ public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = mInflater.inflate(R.layout.recyleview_row_search, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +51,17 @@ public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         String name = mData.get(position);
         holder.myTextView.setText(name);
-        holder.pic.setImageResource(pictures.get(position));
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profileRef = storageReference.child("users/"+pictures.get(position)+"/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.pic);
+            }
+        });
+        //holder.pic.setImageResource(pictures.get(position));
     }
 
     // total number of rows
@@ -61,8 +78,8 @@ public class RecyleViewSearch extends RecyclerView.Adapter<RecyleViewSearch.View
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnimalName);
-            pic = itemView.findViewById(R.id.profile_image);
+            myTextView = itemView.findViewById(R.id.profile_name_search);
+            pic = itemView.findViewById(R.id.profile_image_search);
             itemView.setOnClickListener(this);
         }
 

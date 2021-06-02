@@ -147,15 +147,21 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
-                            List<String> x = dataSnapshot.getValue(genericTypeIndicator);
+                            GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {};
+                            List<List<String>> x = dataSnapshot.getValue(genericTypeIndicator);
 
                             if(x != null) {
-                                x.add("" + firebaseAuth.getUid());
+                                List<String> list = new ArrayList<>();
+                                list.add("" + firebaseAuth.getUid());
+                                list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
+                                x.add(list);
                                 reference.setValue(x);
                             }else{
-                                List<String> p = new ArrayList<>();
-                                p.add("" + firebaseAuth.getUid());
+                                List<List<String>> p = new ArrayList<>();
+                                List<String> list = new ArrayList<>();
+                                list.add("" + firebaseAuth.getUid());
+                                list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
+                                p.add(list);
                                 reference.setValue(p);
                             }
 
