@@ -3,7 +3,10 @@ package com.example.buddyy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +30,9 @@ import java.util.List;
 public class Search extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     RecyleViewSearch adapter;
+    RecyclerView recyclerView;
+    private List<String> ppl = new ArrayList<>();
+    private List<String> pics = new ArrayList<>();
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -106,9 +112,49 @@ public class Search extends AppCompatActivity {
             }
         });
 
+        EditText searchText = findViewById(R.id.searchText);
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                ppl.clear();
+                pics.clear();
+
+                if(s.toString().isEmpty()){
+                    recyclerView.setAdapter(new RecyleViewSearch(getApplicationContext(), ppl,pics));
+                    adapter.notifyDataSetChanged();
+                }else{
+                    filter(s.toString());
+                }
+
+            }
+
+            private void filter(String s) {
+                for(int i = 0; i< people.size();i++){
+                    String l = people.get(i);
+                    if(l.contains(s)){
+                        ppl.add(l);
+                        pics.add(pictures.get(i));
+                    }
+                }
+                recyclerView.setAdapter(new RecyleViewSearch(getApplicationContext(), ppl, pics));
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager) recyclerView.getLayoutManager()).setStackFromEnd(false);
         adapter = new RecyleViewSearch(this, people, pictures);

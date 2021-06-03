@@ -1,7 +1,5 @@
 package com.example.buddyy;
 
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -140,39 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     addImage();
 
                     // ADD USER TO THE USER DATABASE
-
-
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                            GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {};
-                            List<List<String>> x = dataSnapshot.getValue(genericTypeIndicator);
-
-                            if(x != null) {
-                                List<String> list = new ArrayList<>();
-                                list.add("" + firebaseAuth.getUid());
-                                list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
-                                x.add(list);
-                                reference.setValue(x);
-                            }else{
-                                List<List<String>> p = new ArrayList<>();
-                                List<String> list = new ArrayList<>();
-                                list.add("" + firebaseAuth.getUid());
-                                list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
-                                p.add(list);
-                                reference.setValue(p);
-                            }
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    addUser();
 
                 } else {
                     Log.d(TAG, "onSuccess: Existing user...\n");
@@ -185,6 +150,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "onFailure: Login Failed" + e.getMessage());
+            }
+        });
+    }
+
+    private void addUser() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {};
+                List<List<String>> x = dataSnapshot.getValue(genericTypeIndicator);
+
+                if(x != null) {
+                    List<String> list = new ArrayList<>();
+                    list.add("" + firebaseAuth.getUid());
+                    list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
+                    x.add(list);
+                    reference.setValue(x);
+                }else{
+                    List<List<String>> p = new ArrayList<>();
+                    List<String> list = new ArrayList<>();
+                    list.add("" + firebaseAuth.getUid());
+                    list.add("" + firebaseAuth.getCurrentUser().getDisplayName());
+                    p.add(list);
+                    reference.setValue(p);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -216,14 +215,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public static Uri getUriToDrawable(@NonNull Context context,
-                                       @AnyRes int drawableId) {
-        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                "://" + context.getResources().getResourcePackageName(drawableId)
-                + '/' + context.getResources().getResourceTypeName(drawableId)
-                + '/' + context.getResources().getResourceEntryName(drawableId));
     }
 
     @Override
