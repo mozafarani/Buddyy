@@ -1,6 +1,7 @@
 package com.example.buddyy;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,11 +26,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     private List<String> mData;
     private LayoutInflater mInflater;
-    private List<Integer> pictures;
+    private List<String> pictures;
     private ItemClickListener mClickListener;
+    private StorageReference storageReference;
+
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, List<String> data,List<Integer> pictures) {
+    MyRecyclerViewAdapter(Context context, List<String> data,List<String> pictures) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.pictures = pictures;
@@ -44,7 +52,16 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         String animal = mData.get(position);
         holder.myTextView.setText(animal);
-        holder.pic.setImageResource(pictures.get(position));
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profileRef = storageReference.child("users/"+pictures.get(position)+"/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.pic);
+            }
+        });
+        //
     }
 
     // total number of rows

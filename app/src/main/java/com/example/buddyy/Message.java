@@ -16,6 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,7 @@ import java.util.List;
 public class Message extends AppCompatActivity {
     MyRecyclerViewAdapter adapter;
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -66,45 +73,44 @@ public class Message extends AppCompatActivity {
         });
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        List<Integer> pictures = new ArrayList<>();
-
-        animalNames.add("Raven Reyes");
-        animalNames.add("Maxwell James");
-        animalNames.add("Ava Alzafarani");
-        animalNames.add("Hannah Baker");
-        animalNames.add("Levi Strootman");
-//        animalNames.add("Raven Reyes");
-//        animalNames.add("Maxwell James");
-//        animalNames.add("Ava Alzafarani");
-//        animalNames.add("Hannah Baker");
-//        animalNames.add("Levi Strootman");
-
-        pictures.add(R.drawable.prof);
+        ArrayList<String> people = new ArrayList<>();
+        List<String> pictures = new ArrayList<>();
 
 
-        pictures.add(R.drawable.cas);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        pictures.add(R.drawable.baby);
+                people.clear();
+                pictures.clear();
 
-        pictures.add(R.drawable.bestfriend);
-        pictures.add(R.drawable.mancool);
-//        pictures.add(R.drawable.prof);
-//
-//
-//        pictures.add(R.drawable.cas);
-//
-//        pictures.add(R.drawable.baby);
-//
-//        pictures.add(R.drawable.bestfriend);
-//        pictures.add(R.drawable.mancool);
+
+                GenericTypeIndicator<List<List<String>>> genericTypeIndicator = new GenericTypeIndicator<List<List<String>>>() {
+                };
+                List<List<String>> x = dataSnapshot.getValue(genericTypeIndicator);
+
+                for (List<String> list : x) {
+                    people.add(list.get(1));
+                    pictures.add(list.get(0));
+                }
+
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyRecyclerViewAdapter(this, animalNames,pictures);
+        adapter = new MyRecyclerViewAdapter(this, people,pictures);
         adapter.setClickListener(this::onItemClick);
         recyclerView.setAdapter(adapter);
 
